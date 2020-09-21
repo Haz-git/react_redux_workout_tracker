@@ -1,0 +1,1 @@
+export const WORKOUT_ACTION = 'WORKOUT_ACTION';
