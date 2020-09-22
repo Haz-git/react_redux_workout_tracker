@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import submitWorkout from '../redux/workout/workoutActions';
 
-const Form = ({ submitWorkout, repCount }) => {
+const Form = ({ submitWorkout }) => {
 
     const [ exerciseName, setExerciseName ] = useState('');
-    const [ exerciseRep, setExerciseRep ] = useState(0);
+    const [ exerciseRep, setExerciseRep ] = useState('');
+
+
+    let submitCounter = 0;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         submitWorkout(exerciseName, exerciseRep);
         console.log('Submit Success', exerciseName, exerciseRep)
+        setExerciseName('');
+        setExerciseRep('');
     }
 
     const handleRepChange = (e) => {
@@ -31,32 +36,24 @@ const Form = ({ submitWorkout, repCount }) => {
             <form onSubmit={handleSubmit} className='ui form'>
                 <div className='field'>
                     <label>Exercise Name</label>
-                    <input onChange={handleNameChange} type='text'></input>
+                    <input value={exerciseName} onChange={handleNameChange} type='text'></input>
                 </div>
                 <div className='field'>
                     <label>Rep Count</label>
-                    <input onChange={handleRepChange} type='number'></input>
+                    <input value={exerciseRep} onChange={handleRepChange} type='number'></input>
                 </div>
                 <button type='submit' className='ui button primary'>Submit</button>
                 <button type='reset' className='ui button negative'>Reset</button>
             </form>
-            <div>
-                <h2>Your Total Reps So Far: {repCount} </h2>
-            </div>
         </div>
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        submitWorkout: () => dispatch(submitWorkout())
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         submitWorkout: () => dispatch(submitWorkout())
+//     }
+// }
 
-const mapStateToProps = state => {
-    return {
-        repCount: state.exercise.reps
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, { submitWorkout })(Form);

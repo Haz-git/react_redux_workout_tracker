@@ -1,11 +1,12 @@
 import { WORKOUT_ACTION } from './workoutTypes';
 
-const submitWorkout = (exercise, num) => {
+
+export const submitWorkout = (name, rep) => {
     return {
         type: WORKOUT_ACTION,
         payload: {
-            exercise: exercise,
-            num: num
+            name: name,
+            rep: rep
         }
     }
 }
